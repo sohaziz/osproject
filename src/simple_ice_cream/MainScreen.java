@@ -33,10 +33,26 @@ public class MainScreen extends javax.swing.JFrame {
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         this.FillTopSelling();
     }
-    private void FillTopSelling()
+private void FillTopSelling(){
+         ResultSet data =   clsOrderItem.TopSellingItems();
+         if (data ==null)
          {
              return;
          }
+         try{
+             data.next();
+         lblTopItemName.setText(data.getString("type"));
+         lblSellingCount.setText(data.getString("sellingcount"));
+         }
+         catch (Exception ex)
+         {
+             //JOptionPane.showMessageDialog(null, ex.getMessage());
+             System.err.println(ex.getMessage());
+             lblTopItemName.setText("");
+             lblSellingCount.setText("");
+         }
+         
+    }
        
     public MainScreen(int Quantity,double total,IceCreamSelling screen) {
         initComponents();
@@ -245,11 +261,8 @@ public class MainScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNewOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewOrderActionPerformed
-        // TODO add your handling code here:
-        dlgPrint printdlg = new dlgPrint(this,true,this.ice.order);
+        // print 
         
-        printdlg.setVisible(true);
-       
     }//GEN-LAST:event_btnNewOrderActionPerformed
 
     private void txtSubTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSubTotalActionPerformed
