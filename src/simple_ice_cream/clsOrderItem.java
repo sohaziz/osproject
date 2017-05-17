@@ -41,7 +41,19 @@ public class clsOrderItem {
 
     public clsOrderItem() {
     }
-   // here
+ public static ResultSet TopSellingItems()
+    {
+        
+        try {
+            MySQLAccess mysql = new MySQLAccess();
+            return mysql.getTopSellingItem();
+        }
+        catch(Exception ex)
+        {
+            return null;
+        }
+    }
+    
    
     public clsOrderItem(long itemid, long orderid, String type, boolean almonds, boolean peanut, boolean mint, boolean peach, boolean lemon, boolean pumpkin, boolean nutella, double totalwithouttax, double tax, double totalwithtax) {
         this.itemid = itemid;
